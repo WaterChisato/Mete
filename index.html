@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteorveil•陨愿</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Serif SC', 'Georgia', serif;
+            background: radial-gradient(ellipse at bottom, #0F0F1A 0%, #000000 100%);
+            color: #E0E7FF;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 星空背景层 */
+        .night-sky {
+            position: fixed;
+            inset: 0;
+            background: transparent;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* 流星帷幕效果 */
+        .meteor-veil {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #FFF;
+            box-shadow: 0 0 15px #FFF;
+            border-radius: 50%;
+            animation: meteor-fall linear infinite;
+        }
+        .meteor-veil:nth-child(1) { left: 15%; animation-duration: 8s; animation-delay: 0s; }
+        .meteor-veil:nth-child(2) { left: 35%; animation-duration: 12s; animation-delay: 2s; }
+        .meteor-veil:nth-child(3) { left: 60%; animation-duration: 10s; animation-delay: 5s; }
+        .meteor-veil:nth-child(4) { left: 85%; animation-duration: 9s; animation-delay: 7s; }
+
+        @keyframes meteor-fall {
+            0% { transform: translateY(-100vh) translateX(0) rotate(30deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(100vh) translateX(300px) rotate(30deg); opacity: 0; }
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 标题区 */
+        .hero {
+            text-align: center;
+            padding: 120px 0 80px;
+        }
+        .hero h1 {
+            font-size: 5em;
+            margin: 0;
+            background: linear-gradient(90deg, #A0E7FF, #FFD8E8, #C0A0FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.15em;
+            text-shadow: 0 0 30px rgba(160,231,255,0.6);
+        }
+        .hero h1 span {
+            font-size: 0.5em;
+            display: block;
+            margin-top: 10px;
+            background: linear-gradient(90deg, #FF9E9E, #D0BFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.6em;
+            margin: 40px 0;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        .cta {
+            display: inline-block;
+            background: linear-gradient(45deg, #4C1D95, #7C3AED);
+            color: white;
+            padding: 16px 48px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3em;
+            box-shadow: 0 10px 40px rgba(124,58,237,0.4);
+            transition: all 0.4s;
+        }
+        .cta:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(124,58,237,0.6);
+        }
+
+        /* 章节 */
+        section {
+            margin: 120px 0;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        h2 {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(90deg, #B0E0E6, #E6E6FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 40px 0;
+            transition: transform 0.4s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .char {
+            text-align: center;
+        }
+        .char .avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #89CFF0, #D8BFD8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+        }
+        .char h3 {
+            margin: 10px 0;
+            font-size: 1.4em;
+        }
+
+        .endings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .ending {
+            background: rgba(80,20,150,0.2);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(180,120,255,0.3);
+        }
+        .ending h4 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #D0BFFF;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.1em;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5em; }
+            .hero p { font-size: 1.3em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="night-sky">
+        <div class="meteor-veil"></div>
+        <div class="meteor-veil"></div>
+        <div class="meteor-veil"></div>
+        <div class="meteor-veil"></div>
+    </div>
+
+    <div class="container">
+        <!-- 标题 -->
+        <section class="hero">
+            <h1>Meteorveil<span>陨愿</span></h1>
+            <p>流星划过夜空，如一层薄帷，遮掩不住人心。<br>法国南部小镇雷塔斯堡，最后一轮流星雨降临前夕，<br>八百居民在同一片星空下，许下各自的愿望——<br>命运由此岔开。</p>
+            <a href="#play" class="cta">进入陨愿</a>
+        </section>
+
+        <!-- 传说 -->
+        <section>
+            <h2>生而为罪</h2>
+            <div class="card">
+                <p>上帝七日创世，却在第六日凝视人类时，发现了原初的裂痕。<br>出生即罪，存在即错。三千年后，预言应验——流星如帷幕般落下，提醒世人：陨落的不只是星辰，还有未曾说出口的愿望。</p>
+            </div>
+        </section>
+
+        <!-- 神罚 -->
+        <section>
+            <h2>三千劫罚</h2>
+            <div class="card">
+                <p>纪元3000年，天穹微裂。远处城市偶有火光，小镇却仍宁静。<br>百货商店物资渐紧，维修店灯火通明，法庭临时议事，警察局夜班无眠。<br>骚动藏在人心，没有大乱，只有每个人心底悄然萌生的念头。</p>
+            </div>
+        </section>
+
+        <!-- 小镇与角色 -->
+        <section>
+            <h2>雷塔斯堡</h2>
+            <div class="card">
+                <p>普罗旺斯山间，人口仅八百的旧镇。林荫古道、陶艺残墙、月光下的广场。<br>流星之夜，全镇聚首，共赏最后一轮。</p>
+            </div>
+            <div class="characters">
+                <div class="char">
+                    <div class="avatar">⛪</div>
+                    <h3>牧师</h3>
+                    <p>宣讲传说，却在星光下动摇</p>
+                </div>
+                <div class="char">
+                    <div class="avatar">🛒</div>
+                    <h3>商人</h3>
+                    <p>守着百货，纠结涨价还是分享</p>
+                </div>
+                <div class="char">
+                    <div class="avatar">🔧</div>
+                    <h3>修理工</h3>
+                    <p>前天文学家，今修车匠，笑称流星只是石头</p>
+                </div>
+                <div class="char">
+                    <div class="avatar">⚖️</div>
+                    <h3>法官</h3>
+                    <p>退休多年，仍审视自己过去的判决</p>
+                </div>
+                <div class="char">
+                    <div class="avatar">🌙</div>
+                    <h3>少女</h3>
+                    <p>抬头望天，许下“愿世界无罪”的愿望</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 结局 -->
+        <section>
+            <h2>陨愿之岔</h2>
+            <div class="card">
+                <p>同一场流星，不同的愿望。<br>多周目、多视角、多结局——你的选择，揭开帷幕一角。</p>
+            </div>
+            <div class="endings">
+                <div class="ending">
+                    <h4>救赎</h4>
+                    <p>分享与理解，众人携手步入避难所</p>
+                </div>
+                <div class="ending">
+                    <h4>分歧</h4>
+                    <p>微小自私，留下小镇隐裂</p>
+                </div>
+                <div class="ending">
+                    <h4>轮回</h4>
+                    <p>旧愿未解，新不安悄生</p>
+                </div>
+                <div class="ending">
+                    <h4>虚无</h4>
+                    <p>否认一切，错过最后时刻</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 结尾CTA -->
+        <section style="text-align: center; margin: 100px 0;">
+            <a href="#wish" class="cta" style="font-size: 1.6em;">许下你的陨愿</a>
+            <p style="margin-top: 30px; opacity: 0.8;">多周目叙事 | 诗意末世 | 火热制作中</p>
+            <br><br>
+            <a href="https://docs.qq.com/doc/DQnd3SkxTeWp3a2Va" target="_blank" class="cta" style="font-size: 1.3em; background: linear-gradient(45deg, #7C3AED, #4C1D95);">查看大纲</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>Meteorveil•陨愿 © 2025　｜　一愿陨落，百愿新生</p>
+    </footer>
+
+    <script>
+        // 随机生成更多流星
+        const sky = document.querySelector('.night-sky');
+        for (let i = 0; i < 8; i++) {
+            const m = document.createElement('div');
+            m.className = 'meteor-veil';
+            m.style.left = Math.random() * 100 + '%';
+            m.style.animationDuration = (Math.random() * 8 + 8) + 's';
+            m.style.animationDelay = Math.random() * 10 + 's';
+            sky.appendChild(m);
+        }
+    </script>
+</body>
+  </html>
